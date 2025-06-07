@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Asesoría Energética Profesional</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Merriweather&family=Montserrat:wght@400;600&display=swap');
+
+  body, html {
+    margin: 0; padding: 0;
+    min-height: 100vh;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #003366;
+    color: #000;
+  }
+
+  #visitor-counter {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background: rgba(255,255,255,0.9);
+    color: #003366;
+    font-weight: 600;
+    padding: 8px 15px;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    font-size: 0.9rem;
+    user-select: none;
+    z-index: 1000;
+  }
+
+  .main-wrapper {
+    max-width: 960px;
+    margin: 80px auto 40px;
+    display: flex;
+    gap: 30px;
+    padding: 0 20px;
+  }
+
+  .sidebar {
+    flex: 0 0 220px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    background: white;
+    overflow: hidden;
+    position: relative;
+    font-family: 'Montserrat', sans-serif;
+    color: #000;
+    font-weight: 600;
+    font-size: 1.1rem;
+    line-height: 1.3;
+    padding: 15px 15px 15px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .sidebar::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: 
+      url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80'),
+      url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80'),
+      url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=400&q=80');
+    background-position: top left, center center, bottom right;
+    background-repeat: no-repeat;
+    background-size: 90px 90px, 140px 140px, 90px 90px;
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .sidebar p {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+  }
+
+  .content {
+    flex: 1;
+    position: relative;
+    border-radius: 15px;
+    padding: 40px 35px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    color: #222;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    background-color: rgba(204, 224, 255, 0.9);
+  }
+
+  .content::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      url('https://images.unsplash.com/photo-1576825280446-220d5d26f90e?auto=format&fit=crop&w=800&q=70'),
+      url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=70'),
+      url('https://images.unsplash.com/photo-1504386106331-3e4e71712b38?auto=format&fit=crop&w=800&q=70');
+    background-position: left center, center top, right bottom;
+    background-repeat: no-repeat;
+    background-size: 300px 200px, 350px 250px, 300px 200px;
+    opacity: 0.12;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .content::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: #003366cc;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .content > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  h1 {
+    font-family: 'Merriweather', serif;
+    font-weight: 700;
+    font-size: 3.5rem;
+    color: #000;
+    margin: 0 0 20px 0;
+    text-align: center;
+    user-select: none;
+  }
+
+  .whatsapp-btn {
+    background-color: #76d281;
+    color: #000;
+    font-weight: 700;
+    font-size: 1.5rem;
+    padding: 18px 48px;
+    border-radius: 50px;
+    text-decoration: none;
+    box-shadow: 0 8px 15px rgba(118, 210, 129, 0.6);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
+    margin-bottom: 40px;
+  }
+
+  .whatsapp-btn:hover {
+    background-color: #5eb164;
+    box-shadow: 0 12px 20px rgba(94, 177, 100, 0.8);
+  }
+
+  .visual-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+    max-width: 600px;
+    color: #3a3a3a;
+    margin-bottom: 50px;
+    position: relative;
+    text-align: center;
+  }
+
+  .visual-text::before,
+  .visual-text::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 60px;
+    height: 3px;
+    background: #76d281;
+    opacity: 0.7;
+  }
+
+  .visual-text::before {
+    left: 0;
+    transform: translateY(-50%);
+  }
+
+  .visual-text::after {
+    right: 0;
+    transform: translateY(-50%);
+  }
+
+  .reviews {
+    max-width: 960px;
+    background: #f0f7ff;
+    border-radius: 15px;
+    padding: 20px 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin: 50px auto 60px;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .reviews h2 {
+    color: #003366;
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+    user-select: none;
+  }
+
+  .review {
+    border-bottom: 1px solid #d0dfee;
+    padding: 12px 0;
+    font-size: 1rem;
+    color: #222;
+  }
+
+  .review:last-child {
+    border-bottom: none;
+  }
+
+  .review-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+
+  .review-name {
+    font-weight: 600;
+    color: #004080;
+  }
+
+  .stars {
+    color: #f1c40f;
+    font-size: 1rem;
+    line-height: 1;
+    user-select: none;
+  }
+
+  #comment-tab {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #76d281;
+    color: #003366;
+    padding: 12px 18px;
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 30px 30px 0 0;
+    cursor: pointer;
+    box-shadow: 0 8px 15px rgba(118, 210, 129, 0.7);
+    user-select: none;
+    z-index: 1001;
+    transition: background-color 0.3s ease;
+  }
+
+  #comment-tab:hover {
+    background-color: #5eb164;
+  }
+
+  #comment-form-container {
+    position: fixed;
+    bottom: 80px;
+    right: 30px;
+    width: 320px;
+    background: #f0f7ff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    border-radius: 15px;
+    padding: 15px 20px;
+    display: none;
+    z-index: 1002;
+  }
+
+  #comment-form-container.active {
+    display: block;
+  }
+
+  #comment-form textarea {
+    width: 100%;
+    resize: vertical;
+    min-height: 70px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+
+  #comment-form input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+
+  #comment-form button {
+    background-color: #76d281;
+    border: none;
+    padding: 12px 20px;
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 30px;
+    color: #003366;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+  }
+
+  #comment-form button:hover {
+    background-color: #5eb164;
+  }
+
+  @media (max-width: 768px) {
+    .main-wrapper {
+      flex-direction: column;
+      margin: 40px auto 20px;
+      gap: 20px;
+    }
+    
+    .sidebar {
+      flex: none;
+      order: 2;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+    }
+    
+    .whatsapp-btn {
+      font-size: 1.2rem;
+      padding: 15px 35px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div id="visitor-counter">Visitantes hoy: <span id="visitor-count">3600</span></div>
+
+<div class="main-wrapper">
+
+  <div class="content">
+    <h1>AYUDAMOS A ENTENDER TU FACTURA DE ENERGÍA</h1>
+
+    <a href="https://wa.me/34647328161" target="_blank" class="whatsapp-btn" rel="noopener noreferrer">
+      Contacta por WhatsApp
+    </a>
+
+    <p class="visual-text">
+      Olvídate de contestadores automáticos. Aquí hay un equipo humano listo para ayudarte de forma personalizada.
+    </p>
+  </div>
+
+  <aside class="sidebar">
+    <p>
+      Llevamos años trabajando con todo tipo de comercializadoras.<br><br>
+      El asesoramiento personal es clave para ahorrar en tu factura y entender cada detalle.<br><br>
+      Energías renovables, mares y futuro sostenible.
+    </p>
+  </aside>
+</div>
+
+<section class="reviews">
+  <h2>Comentarios de nuestros clientes</h2>
+  <div class="review">
+    <div class="review-header">
+      <span class="review-name">Laura M.</span>
+      <span class="stars">★★★★★</span>
+    </div>
+    <p>Muy buen servicio, me ayudaron a ahorrar mucho en mi factura.</p>
+  </div>
+  <div class="review">
+    <div class="review-header">
+      <span class="review-name">Carlos R.</span>
+      <span class="stars">★★★★★</span>
+    </div>
+    <p>Trato cercano y sin máquinas. Lo recomiendo 100%.</p>
+  </div>
+  <div class="review">
+    <div class="review-header">
+      <span class="review-name">Sofía G.</span>
+      <span class="stars">★★★★★</span>
+    </div>
+    <p>Asesoramiento profesional y personalizado, justo lo que necesitaba.</p>
+  </div>
+</section>
+
+<div id="comment-tab">Deja tu comentario</div>
+
+<div id="comment-form-container">
+  <form id="comment-form">
+    <input type="text" id="name" placeholder="Tu nombre" required />
+    <textarea id="comment" placeholder="Tu comentario" required></textarea>
+    <button type="submit">Enviar</button>
+  </form>
+</div>
+
+<script>
+  let initialCount = 3600;
+  const startDate = new Date('2025-06-01');
+  const now = new Date();
+  const daysActive = Math.floor((now - startDate) / (1000*60*60*24));
+  const visitorCount = initialCount + daysActive * 10;
+  document.getElementById('visitor-count').textContent = visitorCount;
+
+  const commentTab = document.getElementById('comment-tab');
+  const commentFormContainer = document.getElementById('comment-form-container');
+
+  commentTab.addEventListener('click', () => {
+    commentFormContainer.classList.toggle('active');
+  });
+
+  const commentForm = document.getElementById('comment-form');
+  commentForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const comment = document.getElementById('comment').value.trim();
+    if(name && comment){
+      alert(`Gracias por tu comentario, ${name}!`);
+      commentForm.reset();
+      commentFormContainer.classList.remove('active');
+    }
+  });
+</script>
+
+</body>
+</html>
